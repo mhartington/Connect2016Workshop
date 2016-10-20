@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { DataService } from '../../providers/data-service';
 import { NavController } from 'ionic-angular';
 import { DetailPage } from '../detail-page/detail-page';
 @Component({
@@ -8,8 +8,17 @@ import { DetailPage } from '../detail-page/detail-page';
 })
 
 export class HomePage {
-  public items = [1, 2, 3]
-  constructor(public navCtrl: NavController) {
+  public items: Array<any>;
+  constructor(
+    public navCtrl: NavController,
+    public data: DataService
+  ) {
+    this.data.getData().subscribe(
+      res => this.items = res.results,
+      err => console.log('err', err),
+      () => console.log('done')
+
+    );
 
   }
 
@@ -22,5 +31,11 @@ export class HomePage {
     let index = this.items.indexOf(item);
     if (index != -1) { this.items.splice(index, 1); }
   }
-
+  fetchMore(event) {
+    this.data.getData().subscribe(
+      res => this.items = this.items.concat(res.results),
+      err => console.log('err', err),
+      () => event.complete()
+    );
+  }
 }

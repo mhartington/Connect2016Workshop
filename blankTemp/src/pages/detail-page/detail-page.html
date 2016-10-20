@@ -10,8 +10,19 @@
 <ion-content padding>
   <ion-list>
     <ion-card>
-        {{item}}
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="item.picture.medium" alt="">
+        </ion-avatar>
+      </ion-item>
+        <ion-card-content>
+          {{item.name.first }} {{item.name.last}}
+        </ion-card-content>
 
     </ion-card>
+
+    <button ion-button block icon-only (click)="takePhoto()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
   </ion-list>
 </ion-content>

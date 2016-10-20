@@ -7,10 +7,20 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="fetchMore($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 	<ion-list>
 		<ion-item-sliding *ngFor="let item of items">
 			<ion-item (click)="pushPage(item)">
-				{{item}}
+        <ion-avatar item-left>
+            <img [src]="item.picture.medium" alt="">
+        </ion-avatar>
+			<p>{{item.name.first}} {{item.name.last}}</p>
+
+      <ion-note item-right>
+        {{item.cell}}
+      </ion-note>
 			</ion-item>
 			<ion-item-options>
 				<button ion-button color="danger" (click)="remove(item)">delete</button>
