@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DataService } from '../../providers/data-service';
 import { NavController } from 'ionic-angular';
 import { DetailPage } from '../detail-page/detail-page';
+import _ from 'lodash';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -27,10 +28,11 @@ export class HomePage {
       'data': item
     });
   }
+
   remove(item) {
-    let index = this.items.indexOf(item);
-    if (index != -1) { this.items.splice(index, 1); }
+    this.items = _.without(this.items, item);
   }
+
   fetchMore(event) {
     this.data.getData().subscribe(
       res => this.items = this.items.concat(res.results),
